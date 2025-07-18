@@ -25,6 +25,58 @@ indice_to_AA = {
     indice: aa for aa, indice in AA_to_indice.items()
 }
 
+
+
+d so you can just pass a single FASTA file:
+
+python
+Copia
+Modifica
+from Bio import SeqIO
+import numpy as np
+import random
+
+# Assuming AA_to_indice is a dictionary mapping amino acids to indices
+
+def generation_dataset_single_file(fasta_path: str, limit: int = None) -> tuple[np.ndarray, np.ndarray, dict]:
+    """
+    Generates matrices X (one-hot encoded) and Y (class labels) from a single fasta file.
+    
+    Parameters:
+    -----------
+    fasta_path : str
+        Path to the fasta file.
+    limit : int or None
+        Maximum number of sequences to read (None to read all).
+    
+    Returns:
+    --------
+    X : np.ndarray
+        Matrix of one-hot encoded sequences.
+    Y : np.ndarray
+        Array of labels (all zeros since all sequences belong to one class).
+    labels : dict
+        Dictionary with label {0: 'single_class'}.
+    """
+    # Read all sequences from the file
+    sequences = list(SeqIO.parse(fasta_path, "fasta"))
+    if limit is not None:
+        sequences = sequences[:limit]
+    
+    # Convert sequences to numeric indices (using AA_to_indice)
+    numeric_seqs = [list(map(lambda x: AA_to_indice.get(x, AA_to_indice["-"]), seq.seq.replace("X", "-"))) for seq in sequences]
+    
+    X = []
+    for seq in numeric_seqs:
+        # One-hot encode: for each position, a list of length 22 with 1 at the AA index, 0 elsewhere
+        X.append([1 if i == aa else 0 for aa in seq for i in range(len(AA_to_indice))])
+    
+    X = np.array(X)
+    Y = np.zeros(len(X), dtype=int)  # All sequences belong to the same class 0
+    labels = {0: "single_class"}
+    
+    return X, Y, labels
+
 def generation_dataset(limite: int, seed: int) -> tuple[np.ndarray, np.ndarray, dict[int: str]]:
     """
     Génére une matrice dont chaque ligne est une séquence.
@@ -255,3 +307,8 @@ def paire_distance(groupeA, groupeB, distance):
             D[i, j] += distance(seqA, seqB, True)
 
     return D
+
+
+__all__ = ["generation_dataset_single_file"]
+
+

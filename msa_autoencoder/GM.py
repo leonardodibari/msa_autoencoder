@@ -77,3 +77,6 @@ class GaussianMixture :
         
         return x + F + Rnd
     
+
+
+__all__ = ["GaussianMixture"]
