@@ -124,3 +124,12 @@ def drift_diff_est(traj, x0, W, dt = 1) :
     sigma2 = np.sum((Dtraj - mu * dt)**2 * KW, axis=0) / KW_sum
 
     return mu, sigma2
+
+
+__all__ = [
+    "AA_to_indice", "hydrophobicity_dict", "indice_to_AA",
+    "generation_dataset", "path_init", "generation_traj", "onehot",
+    "plot_acp", "composition_clusters", "plot_composition",
+    "onehot2seq", "hamming", "batch_similarite", "purete_score",
+    "paire_distance"
+]
