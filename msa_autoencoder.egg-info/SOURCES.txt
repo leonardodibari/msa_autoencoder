@@ -1,0 +1,13 @@
+LICENSE
+README.md
+setup.py
+msa_autoencoder/GM.py
+msa_autoencoder/__init__.py
+msa_autoencoder/autoencoder.py
+msa_autoencoder/my_scripts.py
+msa_autoencoder/utils.py
+msa_autoencoder.egg-info/PKG-INFO
+msa_autoencoder.egg-info/SOURCES.txt
+msa_autoencoder.egg-info/dependency_links.txt
+msa_autoencoder.egg-info/requires.txt
+msa_autoencoder.egg-info/top_level.txt
