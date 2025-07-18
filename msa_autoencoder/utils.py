@@ -7,7 +7,7 @@ from Bio import SeqIO
 def step_distances(x_traj, hamming=False) : 
 
     """
-    Calculate traveled distances between two steps
+    Calculate traveled distances between two steps, modified
     """
 
     d = []
